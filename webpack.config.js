@@ -1,10 +1,15 @@
 const path = require('path');
 
 module.exports = {
-  context: path.join(__dirname, 'src/'),
-  entry: [
-    './js/index.js',
-  ],
+  context: path.join(__dirname, './src/'),
+  entry: {
+    './js/index-generated': './js/index.js',
+    './data/data-generated.json': './data/data.json',
+  },
+  output: {
+    path: path.resolve(__dirname, './www/'),
+    filename: '[name].js',
+  },
   devtool: 'source-map',
   module: {
     rules: [

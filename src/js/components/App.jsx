@@ -1,8 +1,9 @@
 import React from 'react';
+import SiteListing from './SiteListing';
 
 const App = () => (
   <div>
-    Hello
+    <SiteListing />
   </div>
 );
 
