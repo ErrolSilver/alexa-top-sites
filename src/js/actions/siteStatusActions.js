@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { GET_SITE_STATUS_PENDING, GET_SITE_STATUS_FAILED, GET_SITE_STATUS_SUCCEEDED } from '../constants/siteStatus';
+import { GET_SITES, GET_SITE_STATUS_PENDING, GET_SITE_STATUS_FAILED, GET_SITE_STATUS_SUCCEEDED } from '../constants/siteStatus';
+
+export function initializeGetSiteStatus(sites) {
+  return (dispatch) => {
+    dispatch({ sites, type: GET_SITES });
+  };
+}
 
 export function getSiteStatusPending(response) {
   return (dispatch) => {
@@ -26,8 +32,7 @@ export function getSiteStatus(siteUrl) {
   };
 
   return (dispatch) => {
-    dispatch(getSiteStatusPending(defaultPayload));
-
+    console.log('wew');
     axios.get(`http://${siteUrl}`, {
       timeout: 7000,
     })
@@ -35,11 +40,11 @@ export function getSiteStatus(siteUrl) {
         if (response.status === 200) {
           dispatch(getSiteStatusSuccess(defaultPayload));
         } else {
-          // dispatch(getSiteStatusError({ url: siteUrl, error: 'timed out' }));
+          dispatch(getSiteStatusError({ url: siteUrl, error: 'timed out' }));
         }
       })
       .catch(() => {
-        // dispatch(getSiteStatusError({ url: siteUrl, error: 'timed out' }));
+        dispatch(getSiteStatusError({ url: siteUrl, error: 'timed out' }));
       });
   };
 }

@@ -15,8 +15,6 @@ csv({ noheader: true })
       const url = jsonObj.field2;
       console.log(`adding url: ${url}`);
       data.sites.push(url);
-    } else {
-      return;
     }
   })
   .on('done', () => {
