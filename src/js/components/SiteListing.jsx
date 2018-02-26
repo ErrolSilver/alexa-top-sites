@@ -6,7 +6,7 @@ import Site from './Site';
 
 const propTypes = {
   dataUrl: PropTypes.string,
-  dispatch: PropTypes.func.isRequired,
+  getSites: PropTypes.func.isRequired,
   sites: PropTypes.arrayOf(PropTypes.string),
 };
 
@@ -15,15 +15,17 @@ const defaultProps = {
   sites: [],
 };
 
-const mapStateToProps = (state) => {
-  return { 
-    sites: state.listingReducers.sites,
-  };
+const mapStateToProps = state => ({
+  sites: state.listingReducers.sites,
+});
+
+const mapDispatchToProps = {
+  getSites,
 };
 
 class SiteListing extends Component {
   componentWillMount() {
-    this.props.dispatch(getSites(this.props.dataUrl));
+    this.props.getSites(this.props.dataUrl);
   }
   render() {
     const { sites } = this.props;
@@ -31,9 +33,7 @@ class SiteListing extends Component {
       <div>
         <h1>test</h1>
 
-        { sites.map((site) => {
-          return <Site url={ site }/> 
-        })}
+        { sites.map(site => <Site key={site} url={site} />)}
       </div>
     );
   }
@@ -43,4 +43,4 @@ SiteListing.propTypes = propTypes;
 SiteListing.defaultProps = defaultProps;
 
 
-export default connect(mapStateToProps)(SiteListing);
+export default connect(mapStateToProps, mapDispatchToProps)(SiteListing);
