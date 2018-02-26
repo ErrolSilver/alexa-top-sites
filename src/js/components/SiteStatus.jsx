@@ -16,7 +16,7 @@ const defaultProps = {
 
 };
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = {
@@ -36,19 +36,19 @@ class SiteStatus extends Component {
         { isPending ?
           'pending'
         : null}
-  
+
         { isSuccess ?
           'success'
         : null}
-  
+
         {
           isFailure ?
           'failure'
-       : null }
+        : null }
       </div>
     );
   }
-};
+}
 
 
 SiteStatus.propTypes = propTypes;

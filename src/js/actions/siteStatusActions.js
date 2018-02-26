@@ -32,7 +32,6 @@ export function getSiteStatus(siteUrl) {
   };
 
   return (dispatch) => {
-    console.log('wew');
     axios.get(`http://${siteUrl}`, {
       timeout: 7000,
     })

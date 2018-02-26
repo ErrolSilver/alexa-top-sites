@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as exampleResponse from '../../data/data.json';
 import { PropTypes } from 'prop-types';
 import { initializeGetSiteStatus } from '../actions/siteStatusActions';
 import Site from '../components/Site';
+import * as exampleResponse from '../../data/data.json';
 
 const propTypes = {
   sites: PropTypes.arrayOf(PropTypes.string),
@@ -30,12 +30,11 @@ class App extends Component {
   }
   render() {
     const { sitesStatuses, sites } = this.props;
-    console.log(sites);
     return (
       <div>
-        { sites.map((site) => {
-          return <Site key={site} status={sitesStatuses[site]} url={site} />
-        })}
+        { sites.map(site => (
+          <Site key={site} status={sitesStatuses[site]} url={site} />
+        ))}
       </div>
     );
   }

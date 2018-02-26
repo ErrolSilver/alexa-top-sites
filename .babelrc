@@ -4,5 +4,15 @@
       "env",{ "modules": false }
     ],
     "react"
-  ]
+  ],
+  "env": {
+    "start": {
+      "presets": [
+        "react-hmre"
+      ]
+    },
+    "test": {
+      "presets": ["env", "react"]
+    }
+  }
 }
