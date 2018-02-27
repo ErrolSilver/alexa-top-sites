@@ -1,11 +1,21 @@
 .site-status {
   display: flex;
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+  }  
 }
 
 .site-status__column {
   align-items: center;
   display: flex;
   margin-left: 30px;
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }  
 }
 
 .site-status__spinner,
@@ -49,6 +59,10 @@
 .site-status__headers {
   margin-left: 15px;
 
+  @media (max-width: $breakpoint-sm) {
+    margin-left: 0;
+  }  
+
   summary {
     cursor: pointer;
   }
@@ -68,4 +82,8 @@
   stroke-width: 4px;
   margin-left: 10px;
   stroke: red;
+
+  @media (max-width: $breakpoint-sm) {
+    margin-left: 0;
+  }  
 }
