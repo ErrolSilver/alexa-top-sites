@@ -26,7 +26,7 @@ export function getSiteStatusSuccess(response) {
 }
 
 export function getSiteStatus(siteUrl) {
-  let payLoad = {
+  const payLoad = {
     url: siteUrl,
     error: '',
     status: '',

@@ -8,10 +8,8 @@ import * as exampleResponse from '../../data/data.json';
 
 const propTypes = {
   sites: PropTypes.arrayOf(PropTypes.string),
-  initializeGetSiteStatus: PropTypes.func.isRequired,
   sitesStatuses: PropTypes.shape().isRequired,
-  sitesPerPage: PropTypes.number,
-  sitesInChunks: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
+  sitesInChunks: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
 };
 
 const defaultProps = {
@@ -37,7 +35,7 @@ class App extends Component {
     this.showMore = this.showMore.bind(this);
   }
   componentDidMount() {
-    const { sites, initializeGetSiteStatus } = this.props;
+    const { sites } = this.props;
     initializeGetSiteStatus(sites);
   }
   showMore() {
@@ -47,14 +45,12 @@ class App extends Component {
     if (nextPage <= this.props.sitesInChunks.length) {
       this.setState({
         activePage: nextPage,
-        visibleSites: newSites
+        visibleSites: newSites,
       });
-
     }
-    console.log(this);
   }
   render() {
-    const { sitesStatuses, sites, sitesPerPage, sitesInChunks } = this.props;
+    const { sitesStatuses } = this.props;
     const { visibleSites } = this.state;
 
     return (

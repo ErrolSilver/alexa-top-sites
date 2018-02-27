@@ -68,8 +68,8 @@ class SiteStatus extends Component {
           isFailure ?
             <div className="site-status__column">
               {error}
-              <svg className='site_status__failure-icon'>
-                <path d='M 10,10 L 30,30 M 30,10 L 10,30' />
+              <svg className="site_status__failure-icon">
+                <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
               </svg>
             </div>
         : null }
