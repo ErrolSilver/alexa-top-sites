@@ -59,7 +59,7 @@ class App extends Component {
           <Site key={site} status={sitesStatuses[site]} url={site} />
         ))}
 
-        <button onClick={this.showMore}>Next Page</button>
+        <button onClick={this.showMore} className="show-more">Next Page</button>
       </div>
     );
   }
