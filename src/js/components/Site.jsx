@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import SiteStatus from './SiteStatus';
 
@@ -9,42 +9,42 @@ const propTypes = {
     isFailure: PropTypes.bool,
     isSuccess: PropTypes.bool,
     error: PropTypes.string,
+    status: PropTypes.string,
   }),
 };
 
 const defaultProps = {
   status: {
-    isPending: false,
+    isPending: true,
     isFailure: false,
     isSuccess: false,
     error: '',
+    status: '',
   },
 };
 
-class Site extends Component {
-  componentDidMount() {
-    // this.props.getSiteStatus(this.props.url);
-  }
-  render() {
-    const {
-      url, status,
-    } = this.props;
 
-    return (
-      <div>
-        <h1>{url}</h1>
+const Site = (props) => {
+  const {
+    url, status,
+  } = props;
 
-        <SiteStatus
-          url={url}
-          isPending={status.isPending}
-          isSuccess={status.isSuccess}
-          isFailure={status.isFailure}
-          error={status.error}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <section className="site">
+      <h1 className="site__title">{url}</h1>
+
+      <SiteStatus
+        url={url}
+        isPending={status.isPending}
+        isSuccess={status.isSuccess}
+        isFailure={status.isFailure}
+        error={status.error}
+        status={status.status}
+      />
+    </section>
+  );
+};
+
 
 Site.propTypes = propTypes;
 Site.defaultProps = defaultProps;

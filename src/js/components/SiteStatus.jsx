@@ -10,10 +10,11 @@ const propTypes = {
   isSuccess: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   getSiteStatus: PropTypes.func.isRequired,
+  status: PropTypes.string,
 };
 
 const defaultProps = {
-
+  status: '',
 };
 
 const mapStateToProps = () => ({
@@ -29,21 +30,48 @@ class SiteStatus extends Component {
   }
   render() {
     const {
-      isPending, isSuccess, isFailure,
+      isPending, isSuccess, isFailure, url, error, status,
     } = this.props;
+
+    const hasStatus = status.length > 0;
+
     return (
-      <div>
+      <div className="site-status">
         { isPending ?
-          'pending'
+          <div className="site-status__column">
+            <div className="site-status__spinner" />
+          </div>
         : null}
 
+        { hasStatus ?
+          <div className="site-status__column">
+            Status: {status}
+            <div className="site-status__headers">
+              <details>
+                <summary>Header Summary</summary>
+
+                <div className="site-status__headers-summary">
+                  header count goes here
+                </div>
+              </details>
+            </div>
+          </div>
+        : null }
+
         { isSuccess ?
-          'success'
+          <div className="site-status__column">
+            <a href={`http://${url}`}>Take me there</a>
+          </div>
         : null}
 
         {
           isFailure ?
-          'failure'
+            <div className="site-status__column">
+              {error}
+              <svg className='site_status__failure-icon'>
+                <path d='M 10,10 L 30,30 M 30,10 L 10,30' />
+              </svg>
+            </div>
         : null }
       </div>
     );

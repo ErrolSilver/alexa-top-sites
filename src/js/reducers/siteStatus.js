@@ -11,6 +11,7 @@ export default function siteStatusReducers(state = initialState, action) {
           isFailure: false,
           isSuccess: false,
           error: '',
+          status: '',
         };
         return allSites;
       }, {}));
@@ -21,6 +22,7 @@ export default function siteStatusReducers(state = initialState, action) {
           isFailure: false,
           isSuccess: false,
           error: '',
+          status: '',
         },
       });
     case GET_SITE_STATUS_FAILED:
@@ -29,7 +31,8 @@ export default function siteStatusReducers(state = initialState, action) {
           isPending: false,
           isSuccess: false,
           isFailure: true,
-          error: `error from ${action.response.url}`,
+          error: action.response.error.message,
+          status: action.response.status,
         },
       });
     case GET_SITE_STATUS_SUCCEEDED:
@@ -39,6 +42,7 @@ export default function siteStatusReducers(state = initialState, action) {
           isSuccess: true,
           isFailure: false,
           error: '',
+          status: action.response.status,
         },
       });
     default:

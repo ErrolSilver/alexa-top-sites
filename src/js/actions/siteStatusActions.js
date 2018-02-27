@@ -26,9 +26,10 @@ export function getSiteStatusSuccess(response) {
 }
 
 export function getSiteStatus(siteUrl) {
-  const defaultPayload = {
+  let payLoad = {
     url: siteUrl,
     error: '',
+    status: '',
   };
 
   return (dispatch) => {
@@ -37,13 +38,19 @@ export function getSiteStatus(siteUrl) {
     })
       .then((response) => {
         if (response.status === 200) {
-          dispatch(getSiteStatusSuccess(defaultPayload));
+          payLoad.status = response.status.toString();
+          dispatch(getSiteStatusSuccess(payLoad));
         } else {
-          dispatch(getSiteStatusError({ url: siteUrl, error: 'timed out' }));
+          payLoad.status = response.status.toString();
+          payLoad.error = {
+            message: 'response was a status code other than 200',
+          };
+          dispatch(getSiteStatusError(payLoad));
         }
       })
-      .catch(() => {
-        dispatch(getSiteStatusError({ url: siteUrl, error: 'timed out' }));
+      .catch((error) => {
+        payLoad.error = error;
+        dispatch(getSiteStatusError(payLoad));
       });
   };
 }

@@ -1,3 +1,4 @@
+import chunk from 'lodash/chunk';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -9,10 +10,13 @@ const propTypes = {
   sites: PropTypes.arrayOf(PropTypes.string),
   initializeGetSiteStatus: PropTypes.func.isRequired,
   sitesStatuses: PropTypes.shape().isRequired,
+  sitesPerPage: PropTypes.number,
+  sitesInChunks: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
 };
 
 const defaultProps = {
   sites: exampleResponse.sites,
+  sitesInChunks: chunk(exampleResponse.sites, 10),
 };
 
 const mapStateToProps = state => ({
@@ -24,17 +28,42 @@ const mapDispatchToProps = {
 };
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      activePage: 0,
+      visibleSites: chunk(exampleResponse.sites, 10)[0],
+    };
+    this.showMore = this.showMore.bind(this);
+  }
   componentDidMount() {
     const { sites, initializeGetSiteStatus } = this.props;
     initializeGetSiteStatus(sites);
   }
+  showMore() {
+    const nextPage = this.state.activePage + 1;
+    const newSites = this.state.visibleSites.concat(this.props.sitesInChunks[nextPage]);
+
+    if (nextPage <= this.props.sitesInChunks.length) {
+      this.setState({
+        activePage: nextPage,
+        visibleSites: newSites
+      });
+
+    }
+    console.log(this);
+  }
   render() {
-    const { sitesStatuses, sites } = this.props;
+    const { sitesStatuses, sites, sitesPerPage, sitesInChunks } = this.props;
+    const { visibleSites } = this.state;
+
     return (
-      <div>
-        { sites.map(site => (
+      <div className="site-listing">
+        { visibleSites.map(site => (
           <Site key={site} status={sitesStatuses[site]} url={site} />
         ))}
+
+        <button onClick={this.showMore}>Next Page</button>
       </div>
     );
   }
