@@ -1,4 +1,5 @@
 import axios from 'axios';
+import elapsedTime from 'elapsed-time';
 import { GET_SITES, GET_SITE_STATUS_PENDING, GET_SITE_STATUS_FAILED, GET_SITE_STATUS_SUCCEEDED } from '../constants/siteStatus';
 
 export function initializeGetSiteStatus(sites) {
@@ -30,7 +31,9 @@ export function getSiteStatus(siteUrl) {
     url: siteUrl,
     error: '',
     status: '',
+    elapsedTime: 0,
   };
+  const elapsedRequestTime = elapsedTime.new().start();
 
   return (dispatch) => {
     axios.get(`http://${siteUrl}`, {
@@ -39,17 +42,20 @@ export function getSiteStatus(siteUrl) {
       .then((response) => {
         if (response.status === 200) {
           payLoad.status = response.status.toString();
+          payLoad.elapsedTime = elapsedRequestTime.getValue();
           dispatch(getSiteStatusSuccess(payLoad));
         } else {
           payLoad.status = response.status.toString();
           payLoad.error = {
             message: 'response was a status code other than 200',
           };
+          payLoad.elapsedTime = elapsedRequestTime.getValue();
           dispatch(getSiteStatusError(payLoad));
         }
       })
       .catch((error) => {
         payLoad.error = error;
+        payLoad.elapsedTime = elapsedRequestTime.getValue();
         dispatch(getSiteStatusError(payLoad));
       });
   };

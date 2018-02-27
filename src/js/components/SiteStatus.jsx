@@ -10,11 +10,8 @@ const propTypes = {
   isSuccess: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   getSiteStatus: PropTypes.func.isRequired,
-  status: PropTypes.string,
-};
-
-const defaultProps = {
-  status: '',
+  status: PropTypes.string.isRequired,
+  elapsedTime: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = () => ({
@@ -30,7 +27,7 @@ class SiteStatus extends Component {
   }
   render() {
     const {
-      isPending, isSuccess, isFailure, url, error, status,
+      isPending, isSuccess, isFailure, url, error, status, elapsedTime,
     } = this.props;
 
     const hasStatus = status.length > 0;
@@ -45,7 +42,7 @@ class SiteStatus extends Component {
 
         { hasStatus ?
           <div className="site-status__column">
-            Status: {status}
+            <span>Status: {status} - {elapsedTime} </span>
             <div className="site-status__headers">
               <details>
                 <summary>Header Summary</summary>
@@ -67,7 +64,7 @@ class SiteStatus extends Component {
         {
           isFailure ?
             <div className="site-status__column">
-              {error}
+              <span>{error} - {elapsedTime}</span>
               <svg className="site_status__failure-icon">
                 <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
               </svg>
@@ -78,8 +75,6 @@ class SiteStatus extends Component {
   }
 }
 
-
 SiteStatus.propTypes = propTypes;
-SiteStatus.defaultProps = defaultProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(SiteStatus);

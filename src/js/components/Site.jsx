@@ -10,6 +10,7 @@ const propTypes = {
     isSuccess: PropTypes.bool,
     error: PropTypes.string,
     status: PropTypes.string,
+    elapsedTime: PropTypes.string,
   }),
 };
 
@@ -20,6 +21,7 @@ const defaultProps = {
     isSuccess: false,
     error: '',
     status: '',
+    elapsedTime: '',
   },
 };
 
@@ -40,6 +42,7 @@ const Site = (props) => {
         isFailure={status.isFailure}
         error={status.error}
         status={status.status}
+        elapsedTime={status.elapsedTime}
       />
     </section>
   );
