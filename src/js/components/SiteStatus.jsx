@@ -36,6 +36,11 @@ class SiteStatus extends Component {
 
     return (
       <div className="site-status">
+
+        { !isPending ?
+          <span>({ elapsedTime })</span>
+        : null}
+
         { isPending ?
           <div className="site-status__column">
             <div className="site-status__spinner" />
@@ -44,7 +49,7 @@ class SiteStatus extends Component {
 
         { hasStatus ?
           <div className="site-status__column">
-            <span>Status: {status} - {elapsedTime} </span>
+            <span>Status: {status} </span>
             <div className="site-status__headers">
               <details>
                 <summary>Header Summary</summary>
@@ -66,7 +71,7 @@ class SiteStatus extends Component {
         {
           isFailure ?
             <div className="site-status__column">
-              <span>{error} - {elapsedTime}</span>
+              <span>{error}</span>
               <svg className="site_status__failure-icon">
                 <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
               </svg>
