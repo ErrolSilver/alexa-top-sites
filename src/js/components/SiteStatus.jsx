@@ -12,6 +12,7 @@ const propTypes = {
   getSiteStatus: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired,
   elapsedTime: PropTypes.string.isRequired,
+  headers: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = () => ({
@@ -27,9 +28,10 @@ class SiteStatus extends Component {
   }
   render() {
     const {
-      isPending, isSuccess, isFailure, url, error, status, elapsedTime,
+      isPending, isSuccess, isFailure, url, error, status, elapsedTime, headers,
     } = this.props;
 
+    const headersString = Object.values(headers).toString();
     const hasStatus = status.length > 0;
 
     return (
@@ -48,7 +50,7 @@ class SiteStatus extends Component {
                 <summary>Header Summary</summary>
 
                 <div className="site-status__headers-summary">
-                  header count goes here
+                  {headersString}
                 </div>
               </details>
             </div>

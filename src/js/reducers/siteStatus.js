@@ -13,6 +13,7 @@ export default function siteStatusReducers(state = initialState, action) {
           error: '',
           status: '',
           elapsedTime: '0',
+          headers: {},
         };
         return allSites;
       }, {}));
@@ -25,6 +26,7 @@ export default function siteStatusReducers(state = initialState, action) {
           error: '',
           status: '',
           elapsedTime: '0',
+          headers: {},
         },
       });
     case GET_SITE_STATUS_FAILED:
@@ -36,6 +38,7 @@ export default function siteStatusReducers(state = initialState, action) {
           error: action.response.error.message,
           status: action.response.status,
           elapsedTime: action.response.elapsedTime,
+          headers: action.response.headers || {},
         },
       });
     case GET_SITE_STATUS_SUCCEEDED:
@@ -47,6 +50,7 @@ export default function siteStatusReducers(state = initialState, action) {
           error: '',
           status: action.response.status,
           elapsedTime: action.response.elapsedTime,
+          headers: action.response.headers || {},          
         },
       });
     default:

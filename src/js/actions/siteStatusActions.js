@@ -27,11 +27,12 @@ export function getSiteStatusSuccess(response) {
 }
 
 export function getSiteStatus(siteUrl) {
-  const payLoad = {
+  const payload = {
     url: siteUrl,
     error: '',
     status: '',
     elapsedTime: 0,
+    headers: {},
   };
   const elapsedRequestTime = elapsedTime.new().start();
 
@@ -40,23 +41,26 @@ export function getSiteStatus(siteUrl) {
       timeout: 7000,
     })
       .then((response) => {
+        payload.headers = response.headers;
+
         if (response.status === 200) {
-          payLoad.status = response.status.toString();
-          payLoad.elapsedTime = elapsedRequestTime.getValue();
-          dispatch(getSiteStatusSuccess(payLoad));
+          payload.status = response.status.toString();
+          payload.elapsedTime = elapsedRequestTime.getValue();
+          dispatch(getSiteStatusSuccess(payload));
+          
         } else {
-          payLoad.status = response.status.toString();
-          payLoad.error = {
+          payload.status = response.status.toString();
+          payload.error = {
             message: 'response was a status code other than 200',
           };
-          payLoad.elapsedTime = elapsedRequestTime.getValue();
-          dispatch(getSiteStatusError(payLoad));
+          payload.elapsedTime = elapsedRequestTime.getValue();
+          dispatch(getSiteStatusError(payload));
         }
       })
       .catch((error) => {
-        payLoad.error = error;
-        payLoad.elapsedTime = elapsedRequestTime.getValue();
-        dispatch(getSiteStatusError(payLoad));
+        payload.error = error;
+        payload.elapsedTime = elapsedRequestTime.getValue();
+        dispatch(getSiteStatusError(payload));
       });
   };
 }

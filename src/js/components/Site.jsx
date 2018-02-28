@@ -11,6 +11,7 @@ const propTypes = {
     error: PropTypes.string,
     status: PropTypes.string,
     elapsedTime: PropTypes.string,
+    headers: PropTypes.object,
   }),
 };
 
@@ -22,6 +23,7 @@ const defaultProps = {
     error: '',
     status: '',
     elapsedTime: '',
+    headers: {},
   },
 };
 
@@ -43,6 +45,7 @@ const Site = (props) => {
         error={status.error}
         status={status.status}
         elapsedTime={status.elapsedTime}
+        headers={status.headers}
       />
     </section>
   );
