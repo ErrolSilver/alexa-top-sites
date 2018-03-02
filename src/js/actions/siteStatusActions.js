@@ -37,8 +37,11 @@ export function getSiteStatus(siteUrl) {
   const elapsedRequestTime = elapsedTime.new().start();
 
   return (dispatch) => {
-    axios.get(`http://${siteUrl}`, {
+    axios.get(`http://cors-anywhere.herokuapp.com/${siteUrl}`, {
       timeout: 7000,
+      headers: {
+        "Origin": "http://localhost",
+      }
     })
       .then((response) => {
         payload.headers = response.headers;
@@ -47,7 +50,7 @@ export function getSiteStatus(siteUrl) {
           payload.status = response.status.toString();
           payload.elapsedTime = elapsedRequestTime.getValue();
           dispatch(getSiteStatusSuccess(payload));
-          
+
         } else {
           payload.status = response.status.toString();
           payload.error = {
